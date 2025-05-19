@@ -17,23 +17,51 @@ public class Philosopher extends Thread {
 
     @Override
     public void run() {
-        for (int i = 0; i < 5; i++) {
-            System.out.println("Philosopher" + id + " думає " + (i + 1) + "-й раз");
-            try {
-                table.waiter.acquire();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+        if (true){
+
+            for (int i = 0; i < 5; i++) {
+                System.out.println("Philosopher" + id + " думає " + (i + 1) + "-й раз");
+                if (id == 4)
+                {
+                    table.getFork(leftFork);
+                    table.getFork(rightFork);
+                }
+                else
+                {
+                    table.getFork(rightFork);
+                    table.getFork(leftFork);
+                }
+
+                System.out.println("Philosopher" + id + " поїв " + (i + 1) + "-й раз");
+
+                table.putFork(leftFork);
+                table.putFork(rightFork);
             }
-            table.getFork(rightFork);
-            table.getFork(leftFork);
 
-
-            System.out.println("Philosopher" + id + " поїв " + (i + 1) + "-й раз");
-
-            table.putFork(leftFork);
-            table.putFork(rightFork);
-            table.waiter.release();
         }
+        else
+        {
+            for (int i = 0; i < 5; i++) {
+                System.out.println("Philosopher" + id + " думає " + (i + 1) + "-й раз");
+                try {
+                    table.waiter.acquire();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                table.getFork(rightFork);
+                table.getFork(leftFork);
+
+
+                System.out.println("Philosopher" + id + " поїв " + (i + 1) + "-й раз");
+
+                table.putFork(leftFork);
+                table.putFork(rightFork);
+                table.waiter.release();
+            }
+        }
+
+
+
     }
 
 }

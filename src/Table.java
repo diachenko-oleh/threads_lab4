@@ -11,7 +11,6 @@ public class Table {
     }
 
     public void getFork(int id) {
-
         try {
             forks[id].acquire();
         } catch (InterruptedException e) {
