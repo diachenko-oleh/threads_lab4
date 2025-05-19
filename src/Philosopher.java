@@ -33,9 +33,16 @@ public class Philosopher extends Thread {
                 }
 
                 System.out.println("Philosopher" + id + " поїв " + (i + 1) + "-й раз");
+                if (id == 4)
+                {
+                    table.putFork(rightFork);
+                    table.putFork(leftFork);
+                }
+                else {
+                    table.putFork(leftFork);
+                    table.putFork(rightFork);
+                }
 
-                table.putFork(leftFork);
-                table.putFork(rightFork);
             }
 
         }
